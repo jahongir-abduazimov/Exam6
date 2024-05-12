@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import Table from "@table";
 import useProductsStore from "../../store/products";
+import { Product } from "../../components/modals";
 const index = () => {
-  const { getData, data, isLoading } = useProductsStore()
+  const { getData, data, isLoading } = useProductsStore();
   const [params] = useState({
     page: 1,
     limit: 10,
@@ -14,15 +15,21 @@ const index = () => {
     { title: "Cost", value: "cost" },
     { title: "", value: "action" },
   ];
-  const action = [
-    { action: "show", action2: "image" },
-  ]
+  const action = [{ action: "show", action2: "image" }];
   useEffect(() => {
     getData(params);
   }, [params]);
   return (
     <div>
-      <Table headers={headers} body={data} action={action} isLoading={isLoading}/>
+      <div className="flex justify-end">
+        <Product />
+      </div>
+      <Table
+        headers={headers}
+        body={data}
+        action={action}
+        isLoading={isLoading}
+      />
     </div>
   );
 };

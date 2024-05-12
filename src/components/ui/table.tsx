@@ -10,13 +10,17 @@ import {
 } from "@mui/material";
 import { Skeleton } from "@mui/material";
 import { TableProps } from "@global-interface";
-import edit from "../../assets/edit-icon.svg";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import DeleteModal from '../modals/delete-user'
+import DeleteModal from "../modals/delete-user";
+import { UserUpdate } from "../modals";
+import edit from "../../assets/edit-icon.svg";
+import { Category } from "../modals";
+import { useState } from "react";
 
-const GlobalTable = ({ headers, body, isLoading, action }: TableProps) => {
+const GlobalTable = ({ headers, body, isLoading, action, editItem }: TableProps) => {
   return (
     <>
+      
       <Box sx={{ width: "100%" }}>
         <Paper sx={{ width: "100%", mb: 2 }}>
           <TableContainer>
@@ -60,20 +64,23 @@ const GlobalTable = ({ headers, body, isLoading, action }: TableProps) => {
                                 <button className="px-[6px] py-[7px] border border-gray-300 active:bg-gray-300 duration-150 bg-gray-200 rounded-md">
                                   <VisibilityIcon />
                                 </button>
+                              ) : items.id ? (
+                                <UserUpdate data={items} />
                               ) : (
                                 <img
                                   className="border border-gray-300 p-[9px] rounded-md active:bg-gray-300 duration-150 bg-gray-200 cursor-pointer"
                                   src={edit}
                                   alt="delate"
+                                  onClick={() => editItem(items)}
                                 />
                               )}
                               {item.action2 == "image" ? (
-                                  <button className="px-[6px] py-[7px] font-medium text-[14px] border border-gray-300 active:bg-gray-300 duration-150 bg-gray-200 rounded-md">
-                                     Set image
-                                  </button>
-                                  ) : (
-                                    <DeleteModal data={items}/>
-                                  )}
+                                <button className="px-[6px] py-[7px] font-medium text-[14px] border border-gray-300 active:bg-gray-300 duration-150 bg-gray-200 rounded-md">
+                                  Set image
+                                </button>
+                              ) : (
+                                <DeleteModal data={items} />
+                              )}
                             </div>
                           </TableCell>
                         ))}

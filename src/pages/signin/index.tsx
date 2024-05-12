@@ -22,9 +22,10 @@ const index = () => {
   const handleSubmit = async (values: Signin) => {
     try {
       const response = await auth.sign_in(values);
+      console.log(response);
       if (response.status === 200) {
         setDataToCookie("token", response?.data?.access_token);
-        setDataToCookie("role", response?.data?.role);
+        setDataToCookie("refresh_token", response?.data?.refresh_token);
         navigate("/admin-panel");
         Notification({
           title: "Successfully login",

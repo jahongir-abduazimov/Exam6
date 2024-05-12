@@ -11,12 +11,14 @@ const style = {
   position: "absolute" as "absolute",
   top: "50%",
   left: "50%",
+  borderRadius: 1.3,
   transform: "translate(-50%, -50%)",
   width: 400,
   bgcolor: "background.paper",
   border: "2px solid #fff",
   boxShadow: 24,
   p: 3,
+  outline: "none",
 };
 
 export default function BasicModal() {
@@ -26,7 +28,7 @@ export default function BasicModal() {
   const navigate = useNavigate();
   const logOut = () => {
     removeDataFromCookie("token");
-    removeDataFromCookie("role");
+    removeDataFromCookie("refresh_token");
     navigate("/");
     window.location.reload();
   };

@@ -1,4 +1,5 @@
 import auth from "./auth";
 import user from './users'
 import product from './products'
-export { auth, user, product };
+import category from './category'
+export { auth, user, product, category };

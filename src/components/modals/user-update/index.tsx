@@ -1,56 +1,63 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
-import { userValidationSchema } from '@validation';
-import { ErrorMessage, Field, Form, Formik } from 'formik';
-import { IconButton, InputAdornment, TextField } from '@mui/material';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { createUser } from '../../../interface/user';
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
+import edit from "../../../assets/edit-icon.svg";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import { Button, IconButton, InputAdornment, TextField } from "@mui/material";
 import Radio from '../../ui/radio'
-import useUsersStore from '../../../store/users';
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { createUser } from "../../../interface/user";
+import { userValidationSchema } from "@validation";
+// import useUsersStore from "../../../store/users";
+import { getDataFromCookie } from "@data-service";
 
 const style = {
-  position: 'absolute' as 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
+  position: "absolute" as "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
   width: 400,
   borderRadius: 1.3,
-  bgcolor: 'background.paper',
-  border: '2px solid #fff',
+  bgcolor: "background.paper",
+  border: "2px solid #fff",
   boxShadow: 24,
-  p: 3,
+  p: 2,
   outline: "none",
 };
 
-export default function BasicModal() {
+export default function BasicModal({data}:any) {
+  // const { updateData } = useUsersStore()
   const [open, setOpen] = React.useState(false);
+  const [showPassword, setShowPassword] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const [showPassword, setShowPassword] = React.useState(false);
-  const {createData, getData} = useUsersStore()
-  const [params] = React.useState({
-    page: 1,
-    limit: 10,
-  });
   const initialValues: createUser = {
-    email: "",
-    password: "",
-    first_name: "",
-    last_name: "",
-    gender: "",
+    email: data.email || "",
+    password: data.password || "",
+    first_name: data.first_name || "",
+    last_name: data.last_name || "",
+    gender: data.gender || "",
   };
-  const handleSubmit = async (data:any) => {
-    createData(data)
-    handleClose()
-    getData(params)
-  }
+  const handleSubmit = async (values:any) => {
+    // const payload = {
+    //   ...values,
+    //   access_token: getDataFromCookie("token"),
+    //   refresh_token: getDataFromCookie("refresh_token"),
+    // };
+    // updateData({...payload, id: data.id})
+    // handleClose();
+    console.log(values);
+  };
 
   return (
     <div>
-      <Button variant='contained' onClick={handleOpen}>Add user</Button>
+      <img
+        className="border border-gray-300 p-[9px] rounded-md active:bg-gray-300 duration-150 bg-gray-200 cursor-pointer"
+        src={edit}
+        alt="delate"
+        onClick={handleOpen}
+      />
       <Modal
         open={open}
         onClose={handleClose}

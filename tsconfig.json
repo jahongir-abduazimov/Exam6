@@ -19,7 +19,7 @@
             "@validation": ["./src/utils/validations.ts"],
             "@auth-interface": ["./src/interface/auth.ts"],
             "@global-interface": ["./src/interface/global.ts"],
-            "@modals": ["./src/components/modal"],
+            "@modals": ["./src/components/modals"],
             "@data-service": ["./src/utils/data-service.ts"],
             "@notification": ["./src/utils/notification.ts"],
             "@table": ["./src/components/ui/table.tsx"],
