@@ -7,7 +7,6 @@ import { TextField } from "@mui/material";
 import { CreateCategory } from "../../../interface/category";
 import useCategoryStore from "../../../store/category";
 import { ModalProps } from "@global-interface";
-import { useEffect, useState } from "react";
 import { categoryValidationSchema } from "../../../utils/validations";
 
 const style = {
