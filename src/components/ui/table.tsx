@@ -10,15 +10,22 @@ import {
 } from "@mui/material";
 import { Skeleton } from "@mui/material";
 import { TableProps } from "@global-interface";
-
 import DeleteModal from "../modals/delete-user";
 import { UserUpdate } from "../modals";
 import edit from "../../assets/edit-icon.svg";
-import MediaUpload from '../ui/media-upload'
-import ProductCard from '../ui/product-card'
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import MediaUpload from "../ui/media-upload";
+import { useNavigate } from "react-router-dom";
+// import ProductCard from "../ui/product-card";
 
-const GlobalTable = ({ headers, body, isLoading, action, editItem }: TableProps) => {
-  
+const GlobalTable = ({
+  headers,
+  body,
+  isLoading,
+  action,
+  editItem,
+}: TableProps) => {
+  const navigate = useNavigate();
   return (
     <>
       <Box sx={{ width: "100%" }}>
@@ -61,8 +68,12 @@ const GlobalTable = ({ headers, body, isLoading, action, editItem }: TableProps)
                           <TableCell key={i}>
                             <div className="flex gap-4 items-center">
                               {item.action == "show" ? (
-                                
-                                <ProductCard data={items}/>
+                                <button
+                                  onClick={() => navigate(`/admin-panel/${items.product_id}`)}
+                                  className="px-[6px] py-[7px] border border-gray-300 active:bg-gray-300 duration-150 bg-gray-200 rounded-md"
+                                >
+                                  <VisibilityIcon />
+                                </button>
                               ) : items.id ? (
                                 <UserUpdate data={items} />
                               ) : (
@@ -75,7 +86,6 @@ const GlobalTable = ({ headers, body, isLoading, action, editItem }: TableProps)
                               )}
                               {item.action2 == "image" ? (
                                 <MediaUpload data={items.product_id} />
-                                
                               ) : (
                                 <DeleteModal data={items} />
                               )}

@@ -7,7 +7,15 @@ import {
 
 import App from "../App";
 
-import { Home, SignIn, SignUp, Products, Categories, Users, Product } from "../pages";
+import {
+  Home,
+  SignIn,
+  SignUp,
+  Products,
+  Categories,
+  Users,
+  Product,
+} from "../pages";
 
 const index = () => {
   const router = createBrowserRouter(
@@ -16,6 +24,7 @@ const index = () => {
         <Route index element={<SignIn />} />
         <Route path="/admin-panel/*" element={<Home />}>
           <Route path="" element={<Products />} />
+          <Route path=":id" element={<Product />} />
           <Route path="singlepage" element={<Product />} />
           <Route path="categories" element={<Categories />} />
           <Route path="users" element={<Users />} />

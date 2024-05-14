@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Table from "@table";
 import useProductsStore from "../../store/products";
 import { Product } from "../../components/modals";
+
 const index = () => {
   const { getData, data, isLoading } = useProductsStore();
   const [params] = useState({

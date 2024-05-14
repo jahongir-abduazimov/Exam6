@@ -18,8 +18,13 @@ const useProductsStore = create<ProductsStore>((set) => ({
       }
       set({ isLoading: false });
       return response;
-    } catch (error) {
-      console.log(error);
+    } catch (error:any) {
+      const message = error?.message
+      Notification({
+        title: `${message}`,
+        type: "error"
+      })
+      console.error(error);
     }
   },
   createProduct: async (data:any) => {
@@ -33,9 +38,38 @@ const useProductsStore = create<ProductsStore>((set) => ({
       }
       console.log(response);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   },
+  getProduct: async (id:string | undefined) => {
+    try {
+      const response = await product.get_product(id);
+      if (response.status === 200) {
+        return response.data;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  },
+  deleteProduct: async (id: string | undefined) => {
+    try {
+      const response = await product.delete_product(id);
+      console.log(response);
+      if (response.status === 200) {
+        Notification({
+          title: "Product successfully deleted",
+          type: "success",
+        });
+      }
+      return response;
+    } catch (error) {
+      Notification({
+        title: "Something went wrong",
+        type: "error",
+      });
+      console.error(error);
+    }
+  }
 }));
 
 export default useProductsStore;

@@ -21,8 +21,12 @@ export interface ProductsStore {
   isLoading: boolean;
   getData: (params: GetProduct) => Promise<any>;
   createProduct: (data: createProduct) => Promise<any>;
+  getProduct: (id: string | undefined) => any;
+  deleteProduct: (id: string | undefined) => any;
 }
 export interface Request {
   get_products: (data: GetProduct) => any;
   create_product: (data: createProduct) => any;
+  get_product: (id: string | undefined) => any;
+  delete_product: (id: string | undefined) => any;
 }

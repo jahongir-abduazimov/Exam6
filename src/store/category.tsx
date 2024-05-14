@@ -75,7 +75,7 @@ const useCategoryStore = create<CategoryStore>((set) => ({
           data: state.data.filter((item: any) => item.category_id !== id),
         }));
         Notification({
-          title: "User successfully deleted",
+          title: "Category successfully deleted",
           type: "success",
         });
       }

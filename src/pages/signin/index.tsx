@@ -31,13 +31,20 @@ const index = () => {
           title: "Successfully login",
           type: "success",
         });
+      } 
+    } catch (error:any) {
+      if (error.response.status === 400) {
+        Notification({
+          title: error?.response?.data?.message,
+          type: "error",
+        });
+      } else if (error.response.status === 404) {
+        Notification({
+          title: "Email not found",
+          type: "error",
+        });
       }
-    } catch (error) {
-      console.log(error);
-      Notification({
-        title: "Wrong email or password",
-        type: "error" 
-      });
+      console.error(error);
     }
   };
   const login = () => {
