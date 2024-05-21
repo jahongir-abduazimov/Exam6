@@ -6,28 +6,29 @@ import Notification from "@notification";
 const useProductsStore = create<ProductsStore>((set) => ({
   data: [],
   isLoading: false,
-  getData: async (params:any) => {
+  totalCount: 1,
+  getData: async (params: any) => {
     try {
       set({ isLoading: true });
       const response = await product.get_products(params);
       if (response.status === 200) {
-        response?.data?.products?.forEach((item: any, index: number) => {
-          item.index = index + 1;
+        set({
+          totalCount: Math.ceil(response.data.total_count / params.limit),
+          data: response?.data?.products,
         });
-        set({ data: response?.data?.products });
       }
       set({ isLoading: false });
       return response;
-    } catch (error:any) {
-      const message = error?.message
+    } catch (error: any) {
+      const message = error?.message;
       Notification({
         title: `${message}`,
-        type: "error"
-      })
+        type: "error",
+      });
       console.error(error);
     }
   },
-  createProduct: async (data:any) => {
+  createProduct: async (data: any) => {
     try {
       const response = await product.create_product(data);
       if (response.status === 201) {
@@ -41,7 +42,7 @@ const useProductsStore = create<ProductsStore>((set) => ({
       console.error(error);
     }
   },
-  getProduct: async (id:string | undefined) => {
+  getProduct: async (id: string | undefined) => {
     try {
       const response = await product.get_product(id);
       if (response.status === 200) {
@@ -69,7 +70,7 @@ const useProductsStore = create<ProductsStore>((set) => ({
       });
       console.error(error);
     }
-  }
+  },
 }));
 
 export default useProductsStore;

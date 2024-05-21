@@ -15,8 +15,7 @@ import { UserUpdate } from "../modals";
 import edit from "../../assets/edit-icon.svg";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import MediaUpload from "../ui/media-upload";
-import { useNavigate } from "react-router-dom";
-// import ProductCard from "../ui/product-card";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 const GlobalTable = ({
   headers,
@@ -26,6 +25,9 @@ const GlobalTable = ({
   editItem,
 }: TableProps) => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams()
+  const page = Number(searchParams.get('page')) || 1
+  const limit = Number(searchParams.get('limit')) || 10
   return (
     <>
       <Box sx={{ width: "100%" }}>
@@ -46,54 +48,58 @@ const GlobalTable = ({
               <TableBody>
                 {isLoading
                   ? Array.from(new Array(5)).map((_, index) => (
-                      <TableRow key={index}>
-                        {headers?.map((_, i) => (
-                          <TableCell key={i}>
-                            <Skeleton />
-                          </TableCell>
-                        ))}
-                      </TableRow>
-                    ))
+                    <TableRow key={index}>
+                      {headers?.map((_, i) => (
+                        <TableCell key={i}>
+                          <Skeleton />
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                  ))
                   : body?.map((items, index) => (
-                      <TableRow key={index}>
-                        {headers?.map((header, i) => (
-                          <TableCell
-                            key={i}
-                            className={items[header.value]?.class}
-                          >
-                            {items[header.value]}
-                          </TableCell>
-                        ))}
-                        {action?.map((item, i) => (
-                          <TableCell key={i}>
-                            <div className="flex gap-4 items-center">
-                              {item.action == "show" ? (
-                                <button
-                                  onClick={() => navigate(`/admin-panel/${items.product_id}`)}
-                                  className="px-[6px] py-[7px] border border-gray-300 active:bg-gray-300 duration-150 bg-gray-200 rounded-md"
-                                >
-                                  <VisibilityIcon />
-                                </button>
-                              ) : items.id ? (
-                                <UserUpdate data={items} />
-                              ) : (
-                                <img
-                                  className="border border-gray-300 p-[9px] rounded-md active:bg-gray-300 duration-150 bg-gray-200 cursor-pointer"
-                                  src={edit}
-                                  alt="delate"
-                                  onClick={() => editItem(items)}
-                                />
-                              )}
-                              {item.action2 == "image" ? (
-                                <MediaUpload data={items.product_id} />
-                              ) : (
-                                <DeleteModal data={items} />
-                              )}
-                            </div>
-                          </TableCell>
-                        ))}
-                      </TableRow>
-                    ))}
+                    <TableRow key={index}>
+                      <TableCell>
+                        {page * limit - (limit - 1) + index}
+                      </TableCell>
+                      {headers?.map((header, i) => (
+                        i >= 1 &&
+                        <TableCell
+                          key={i}
+                          className={items[header.value]?.class}
+                        >
+                          {items[header.value]}
+                        </TableCell>
+                      ))}
+                      {action?.map((item, i) => (
+                        <TableCell key={i}>
+                          <div className="flex gap-4 items-center">
+                            {item.action == "show" ? (
+                              <button
+                                onClick={() => navigate(`/admin-panel/${items.product_id}`)}
+                                className="px-[6px] py-[7px] border border-gray-300 active:bg-gray-300 duration-150 bg-gray-200 rounded-md"
+                              >
+                                <VisibilityIcon />
+                              </button>
+                            ) : items.id ? (
+                              <UserUpdate data={items} />
+                            ) : (
+                              <img
+                                className="border border-gray-300 p-[9px] rounded-md active:bg-gray-300 duration-150 bg-gray-200 cursor-pointer"
+                                src={edit}
+                                alt="delate"
+                                onClick={() => editItem(items)}
+                              />
+                            )}
+                            {item.action2 == "image" ? (
+                              <MediaUpload data={items.product_id} />
+                            ) : (
+                              <DeleteModal data={items} />
+                            )}
+                          </div>
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                  ))}
               </TableBody>
             </Table>
           </TableContainer>

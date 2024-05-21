@@ -64,7 +64,7 @@ function index() {
               <p className="text-[20px] text-slate-600">
                 Color: {product?.color}
               </p>
-              <p className="text-[20px] text-slate-600">Size: {product.size}</p>
+              <p className="text-[20px] text-slate-600">Size: {product?.size}</p>
               <p className="text-[20px] text-slate-600">
                 Count: {product?.count}
               </p>

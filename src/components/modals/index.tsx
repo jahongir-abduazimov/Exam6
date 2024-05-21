@@ -5,4 +5,5 @@ import User from "./user";
 import UserUpdate from './user-update'
 import Product from './product'
 import Category from './category'
-export { SignInModal, SignUpModal, Logout, User, UserUpdate, Product, Category };
+import ImageUpdate from './image-upload'
+export { SignInModal, SignUpModal, Logout, User, UserUpdate, Product, Category, ImageUpdate };

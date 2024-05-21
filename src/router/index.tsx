@@ -15,6 +15,7 @@ import {
   Categories,
   Users,
   Product,
+  Upload
 } from "../pages";
 
 const index = () => {
@@ -25,6 +26,7 @@ const index = () => {
         <Route path="/admin-panel/*" element={<Home />}>
           <Route path="" element={<Products />} />
           <Route path=":id" element={<Product />} />
+          <Route path="upload" element={<Upload />} />
           <Route path="singlepage" element={<Product />} />
           <Route path="categories" element={<Categories />} />
           <Route path="users" element={<Users />} />
