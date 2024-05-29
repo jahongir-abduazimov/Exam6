@@ -3,12 +3,17 @@ import Table from "@table";
 import useProductsStore from "../../store/products";
 import { Product } from "../../components/modals";
 import GlobalPagination from "../../components/ui/pagination";
+import { InputBase, Paper } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
 const index = () => {
   const { getData, data, isLoading, totalCount } = useProductsStore();
+  const [count, setCount] = useState("");
   const [params, setParams] = useState({
     page: 1,
     limit: 10,
+    name: "",
   });
+  console.log(count);
   const headers = [
     { title: "№", value: "index" },
     { title: "Product name", value: "product_name" },
@@ -17,8 +22,12 @@ const index = () => {
     { title: "", value: "action" },
   ];
   const action = [{ action: "show", action2: "image" }];
+  const response = async () => {
+    const response = await getData(params);
+    setCount(response.data.total_count);
+  };
   useEffect(() => {
-    getData(params);
+    response();
   }, [params]);
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -35,9 +44,35 @@ const index = () => {
       page: value,
     }));
   };
+  const search = (value: any) => {
+    setParams((prevParams) => ({
+      ...prevParams,
+      name: value,
+    }));
+  };
   return (
-    <div>
-      <div className="flex justify-end">
+    <>
+      <div className=" py-3 flex justify-between items-center">
+        <div className="w-96">
+          <Paper
+            component="form"
+            sx={{
+              p: "2px 4px",
+              display: "flex",
+              alignItems: "center",
+              width: "400",
+            }}
+          >
+            <InputBase
+              sx={{ ml: 1, flex: 1 }}
+              placeholder="Qidiruv"
+              inputProps={{ "aria-label": "Search google maps" }}
+              name="product_name"
+              onChange={(e) => search(e.target.value)}
+            />
+            <SearchIcon />
+          </Paper>
+        </div>
         <Product />
       </div>
       <Table
@@ -46,12 +81,14 @@ const index = () => {
         action={action}
         isLoading={isLoading}
       />
-      <GlobalPagination
-        totalCount={totalCount}
-        page={params.page}
-        setParams={changePage}
-      />
-    </div>
+      {count ? (
+        <GlobalPagination
+          totalCount={totalCount}
+          page={params.page}
+          setParams={changePage}
+        />
+      ) : null}
+    </>
   );
 };
 
