@@ -25,7 +25,7 @@ function index() {
       const data = await getProduct(id);
       setProduct(data);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 

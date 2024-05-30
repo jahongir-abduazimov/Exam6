@@ -11,7 +11,7 @@ export default function GlobalPagination(props: PaginationProps) {
     const searchParams = new URLSearchParams(location.search);
     searchParams.set("page", `${value}`);
     navigate(`?${searchParams}`)
-    console.log(event);
+    console.info(event);
   };
 
   return (

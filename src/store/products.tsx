@@ -37,7 +37,6 @@ const useProductsStore = create<ProductsStore>((set) => ({
           type: "success",
         });
       }
-      console.log(response);
     } catch (error) {
       console.error(error);
     }
@@ -55,7 +54,6 @@ const useProductsStore = create<ProductsStore>((set) => ({
   deleteProduct: async (id: string | undefined) => {
     try {
       const response = await product.delete_product(id);
-      console.log(response);
       if (response.status === 200) {
         Notification({
           title: "Product successfully deleted",

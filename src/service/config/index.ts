@@ -2,7 +2,7 @@ import axios  from 'axios';
 import { getDataFromCookie } from '@data-service';
 
 const request = axios.create({
-      baseURL: 'http://store.go-clothes.uz:5555/v1'
+      baseURL: 'https://store.go-clothes.uz/v1'
 })
 
 request.interceptors.request.use((config) => {

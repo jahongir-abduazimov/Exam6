@@ -13,7 +13,6 @@ const index = () => {
     limit: 10,
     name: "",
   });
-  console.log(count);
   const headers = [
     { title: "№", value: "index" },
     { title: "Product name", value: "product_name" },

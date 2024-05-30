@@ -16,7 +16,7 @@ export default function InputFileUpload({ data }: any) {
     formData.append("file", image);
     try {
       const response = await axios.post(
-        `http://store.go-clothes.uz:5555/v1/media/upload-photo?id=${data}`,
+        `https://store.go-clothes.uz/v1/media/upload-photo?id=${data}`,
         formData,
         {
           headers: {

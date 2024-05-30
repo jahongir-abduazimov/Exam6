@@ -42,7 +42,6 @@ export default function BasicModal({ data }: any) {
     age: data.age,
     phone_number: data.phone_number,
   };
-  // console.log(data);
   const handleSubmit = async (values: any) => {
     const payload = {
       ...values,
